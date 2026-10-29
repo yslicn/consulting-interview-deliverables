@@ -84,11 +84,20 @@ def write_minutes(data,path,profile):
     header=sec.header.paragraphs[0]
     logos=profile.get('logos',[])
     if logos:
+        # Exact body leading clips tall inline logos in header cells.
+        header.paragraph_format.line_spacing=Pt(1)
+        header.paragraph_format.space_after=Pt(0)
         t=sec.header.add_table(rows=1,cols=2,width=Cm(17))
         t.cell(0,0).paragraphs[0].add_run().add_picture(logos[0],width=Cm(2.25))
         if len(logos)>1:
             p=t.cell(0,1).paragraphs[0];p.alignment=WD_ALIGN_PARAGRAPH.RIGHT;p.add_run().add_picture(logos[1],width=Cm(3))
-        header.paragraph_format.space_after=Pt(0)
+        for cell in t.rows[0].cells:
+            for p in cell.paragraphs:
+                p.paragraph_format.line_spacing=1.0
+                p.paragraph_format.space_before=p.paragraph_format.space_after=Pt(0)
+        tail=sec.header.paragraphs[-1]
+        tail.paragraph_format.line_spacing=Pt(1)
+        tail.paragraph_format.space_after=Pt(0)
     else:header.text=project['name'];header.runs[0].font.size=Pt(8)
     foot=sec.footer.paragraphs[0];foot.alignment=WD_ALIGN_PARAGRAPH.RIGHT
     stage=(' '+iv['stage']) if iv.get('stage') else ''
