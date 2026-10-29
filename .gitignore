@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+*.local.json
+.DS_Store
+dist/
+build/
+outputs/
+.interview-work/
+*.docx
+*.xlsx
+*.pdf
+*.png
+*.m4a
+*.mp3
+*.wav

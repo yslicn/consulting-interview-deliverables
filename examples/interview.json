@@ -1,0 +1,88 @@
+{
+  "project": {
+    "name": "示例流程优化项目（虚构）",
+    "code": "DEMO",
+    "groups": [
+      {"name": "采购组", "scope": "采购业务"},
+      {"name": "流程组", "scope": "流程与协同"}
+    ]
+  },
+  "interview": {
+    "id": "DEMO-INT-001",
+    "stage": null,
+    "level": "业务访谈",
+    "object": "业务负责人甲",
+    "date": "2026-11-01",
+    "place": "示例会议室",
+    "duration_hours": 1,
+    "participants": ["业务负责人甲", "顾问丙"],
+    "topic": "采购流程执行情况",
+    "has_outline": false,
+    "source_file": "transcript.txt"
+  },
+  "minutes": {
+    "title": "采购业务访谈会议纪要",
+    "overview": "本次沟通讨论紧急采购的审批执行情况及后续核实安排。",
+    "sections": [
+      {
+        "title": "采购流程执行",
+        "items": [
+          {"label": "案例情况", "text": "上周两笔紧急采购在下单后补录系统审批记录。", "kind": "fact", "evidence_ids": ["DEMO-EVD-001"]},
+          {"label": "复盘要求", "text": "复盘两笔采购的流程和等待时间，核对具体执行环节。", "kind": "request", "evidence_ids": ["DEMO-EVD-003"]}
+        ]
+      }
+    ],
+    "actions": [
+      {"item": "收集采购单据", "content": "收集两笔紧急采购单据，支持流程复盘。", "owner": "项目联络人乙", "when": "2026年11月5日前", "agreed": true, "evidence_ids": ["DEMO-EVD-004"]}
+    ],
+    "open_items": ["供应商年度评价的周期及实际执行情况。"]
+  },
+  "records": [
+    {
+      "id": "DEMO-ISS-0001",
+      "group": "采购组",
+      "collaborating_groups": ["流程组"],
+      "nature": "问题",
+      "domain": "采购审批",
+      "title": "两笔紧急采购在下单后补录审批记录",
+      "description": "上周两笔紧急采购先下单，随后补录系统审批记录，具体原因待核实。",
+      "impact": "可能影响审批留痕完整性。",
+      "management_request": "先复盘两笔采购的流程与等待时间。",
+      "departments": ["采购"],
+      "status": "待核实",
+      "related_ids": [],
+      "interview_ids": ["DEMO-INT-001"],
+      "verification": {
+        "focus": "复盘需求、审批、下单及补录的实际时间。",
+        "materials": "两笔采购单据、审批记录和授权表。",
+        "completion_criteria": "形成案例时间线及规则适用对照，明确实际执行差距。"
+      }
+    },
+    {
+      "id": "DEMO-ISS-0002",
+      "group": "采购组",
+      "collaborating_groups": [],
+      "nature": "待核实线索",
+      "domain": "供应商管理",
+      "title": "供应商年度评价的周期与执行情况",
+      "description": "会上询问年度评价的开展情况，实际规则与执行记录待核实。",
+      "impact": null,
+      "management_request": null,
+      "departments": ["采购"],
+      "status": "待核实",
+      "related_ids": [],
+      "interview_ids": ["DEMO-INT-001"],
+      "verification": {
+        "focus": "核对评价周期及最近一次实施记录。",
+        "materials": "评价制度、评价计划和实施记录。",
+        "completion_criteria": "明确实际规则与执行情况，有具体差距后再判断是否形成问题。"
+      }
+    }
+  ],
+  "evidence": [
+    {"id": "DEMO-EVD-001", "record_ids": ["DEMO-ISS-0001"], "interview_id": "DEMO-INT-001", "speaker_role": "client", "speaker": "业务负责人甲", "source_file": "transcript.txt", "locator": "P001", "quote": "上周两笔紧急采购在下单后补录系统审批记录。", "utterance_type": "现状陈述", "purpose": "支持"},
+    {"id": "DEMO-EVD-002", "record_ids": ["DEMO-ISS-0002"], "interview_id": "DEMO-INT-001", "speaker_role": "consultant", "speaker": "顾问丙", "source_file": "transcript.txt", "locator": "P003", "quote": "供应商年度评价是否按统一周期开展？", "utterance_type": "提问", "purpose": "线索来源"},
+    {"id": "DEMO-EVD-003", "record_ids": ["DEMO-ISS-0001"], "interview_id": "DEMO-INT-001", "speaker_role": "client", "speaker": "业务负责人甲", "source_file": "transcript.txt", "locator": "P005", "quote": "请先复盘两笔采购的流程和等待时间。", "utterance_type": "管理诉求", "purpose": "管理诉求依据"},
+    {"id": "DEMO-EVD-004", "record_ids": [], "interview_id": "DEMO-INT-001", "speaker_role": "client", "speaker": "业务负责人甲", "source_file": "transcript.txt", "locator": "P006", "quote": "双方确认由项目联络人乙于2026年11月5日前收集两笔单据。", "utterance_type": "明确安排", "purpose": "行动安排依据"}
+  ]
+}
