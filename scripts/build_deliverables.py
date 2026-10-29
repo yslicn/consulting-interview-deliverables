@@ -79,6 +79,7 @@ def write_minutes(data,path,profile):
     for name,size in [('Title',19),('Heading 1',13),('Heading 2',11),('Heading 3',10.5)]:
         set_font(d.styles[name],profile,size,True)
         d.styles[name].paragraph_format.keep_with_next=True
+        d.styles[name].paragraph_format.line_spacing=1.2
     project=data['project'];iv=data.get('interview')
     if not iv:raise ContractError('Minutes require the current interview object')
     header=sec.header.paragraphs[0]
