@@ -154,7 +154,7 @@ def validate(data):
             for item in section.get('items', []):
                 linked = check_refs(item, 'minutes item')
                 kind = item.get('kind')
-                if not item.get('label') or not item.get('text') or kind not in KINDS:
+                if not isinstance(item.get('label', ''), str) or not item.get('text') or kind not in KINDS:
                     errors.append('minutes item needs label, text and kind')
                 if kind == 'fact' and not any(e.get('utterance_type') == '现状陈述' for e in linked):
                     errors.append('minutes fact needs a current-state statement')

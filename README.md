@@ -4,7 +4,7 @@
 
 ## English
 
-A Claude Skill for consulting teams: create structured Word meeting minutes from original interview transcripts and incrementally maintain one shared Excel issue ledger per project. Current release: **1.2.0**. Project names, phases, workstreams and the number of teams are configurable.
+A Claude Skill for consulting teams: create structured Word meeting minutes from original interview transcripts and incrementally maintain one shared Excel issue ledger per project. Current release: **1.4.0**. For formal delivery, follow the independent review workflows in [SKILL.md](SKILL.md), including review records tied to the final files. Project names, phases, workstreams and the number of teams are configurable.
 
 **This is a drafting and review aid. Project staff must review deliverables before formal archiving.** Rules and code checks cannot replace business judgment or guarantee consistent quality across models.
 
@@ -93,7 +93,7 @@ Use `semantic-review.json` in the working directory to review assertions, speake
 
 ### Maintenance and validation scope
 
-Start with [SKILL.md](SKILL.md). The 24 automated tests cover the data contract, quote checks, evidence-type gates, incremental updates, preservation of confirmation data, explicit change auditing, file generation and structural checks. GitHub Actions runs them on Python 3.10 and 3.12; it performs no real-client semantic assessment and installs no Office layout engine.
+Start with [SKILL.md](SKILL.md). The 27 automated tests cover the data contract, quote checks, evidence-type gates, incremental updates, preservation of confirmation data, explicit change auditing, file generation and structural checks. GitHub Actions runs them on Python 3.10 and 3.12; it performs no real-client semantic assessment and installs no Office layout engine.
 
 Use incremental checks for routine additions. After script, formula or schema changes, rerun full tests and actual export checks. Report issues using sanitized or fictional minimal examples; never upload client information to public issues.
 
@@ -107,7 +107,7 @@ Release status: suitable for team trials and human-reviewed delivery. See [CHANG
 
 ## 中文说明
 
-面向咨询项目组的 Claude Skill：基于原始转写材料，生成结构化 Word 会议纪要，并增量维护整个项目共用的 Excel 问题台账。当前版本 **1.2.0**，支持不同客户、阶段及任意数量的小组。
+面向咨询项目组的 Claude Skill：基于原始转写材料，生成结构化 Word 会议纪要，并增量维护整个项目共用的 Excel 问题台账。正式交付需按 [SKILL.md](SKILL.md) 完成独立评审并将评审记录绑定到成品。当前版本 **1.4.0**，支持不同客户、阶段及任意数量的小组。
 
 **定位：辅助制作和评审的工具，正式归档必须经过项目人员复核。** 规则和代码检查不能替代业务判断，也不能保证不同模型输出相同质量。
 
@@ -196,7 +196,7 @@ python scripts/check_deliverables.py \
 
 ### 维护与测试范围
 
-完整规则入口：[SKILL.md](SKILL.md)。24 项自动化测试覆盖数据合同、引文检查、事实类型门槛、增量维护、保留确认信息、显式修改审计、文件生成与结构检查等。GitHub Actions 在 Python 3.10 / 3.12 上运行这些测试；不执行真实客户语义评审，也不安装 Office 排版引擎。
+完整规则入口：[SKILL.md](SKILL.md)。27 项自动化测试覆盖数据合同、引文检查、事实类型门槛、增量维护、保留确认信息、显式修改审计、文件生成与结构检查等。GitHub Actions 在 Python 3.10 / 3.12 上运行这些测试；不执行真实客户语义评审，也不安装 Office 排版引擎。
 
 日常追加采用增量检查；脚本、公式或结构变化后重新执行完整测试与实际导出检查。团队反馈问题时请使用脱敏或虚构的最小复现材料，不在公开 Issue 上传客户信息。
 

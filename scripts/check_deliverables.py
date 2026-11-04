@@ -82,11 +82,25 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--minutes');p.add_argument('--ledger');p.add_argument('--expected-data');p.add_argument('--report')
     p.add_argument('--require-calculated',action='store_true')
+    p.add_argument('--final-review', help='定稿评审结果JSON，核对当前Word与工作数据')
+    p.add_argument('--ledger-review', help='台账独立评审JSON，核对完整记录覆盖与当前成品')
     args=p.parse_args()
     if not(args.minutes or args.ledger):p.error('Provide at least one file')
     try:
         expected=json.loads(Path(args.expected_data).read_text(encoding='utf-8')) if args.expected_data else None
         result=check_files(args.minutes,args.ledger,args.require_calculated,expected)
+        if args.final_review:
+            if not args.minutes or not args.expected_data:
+                raise ValueError('定稿评审需要--minutes和--expected-data')
+            from check_minutes_review import verify
+            review=json.loads(Path(args.final_review).read_text(encoding='utf-8'))
+            result['errors'].extend(verify(review,args.expected_data,args.minutes))
+        if args.ledger_review:
+            if not args.ledger or not args.expected_data:
+                raise ValueError('台账评审需要--ledger和--expected-data')
+            from check_ledger_review import verify as verify_ledger
+            review=json.loads(Path(args.ledger_review).read_text(encoding='utf-8'))
+            result['errors'].extend(verify_ledger(review,args.expected_data,args.ledger,args.minutes))
     except (OSError,ValueError,KeyError) as exc:result={'errors':[str(exc)],'warnings':[],'semantic_review_required':True}
     result['passed']=not result['errors'];text=json.dumps(result,ensure_ascii=False,indent=2)
     if args.report:Path(args.report).write_text(text,encoding='utf-8')

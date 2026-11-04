@@ -63,3 +63,7 @@ action包括item、content、owner、when、agreed布尔值及evidence_ids。未
 合并变更可同时填写status、related_ids和verification中的结论及确认信息。不要又在records里发送同ID的旧字段，否则生成器会识别冲突。
 
 已有来源引文和访谈元数据冲突时拒绝静默覆盖。原始转写纠错、证据重定位或访谈身份变更应保留历史并人工迁移，不通过改标签或删除校验绕过。
+
+纪要item.label可为空字符串，渲染器省略空标签及冒号。item.text须为独立完整的业务段落，证据仍由evidence_ids关联。
+
+open_items仍为字符串数组，用于最终“跟踪事项”，仅放按writing.md筛选后的关键事项。完整候选及取舍理由另存工作区，不改变既有业务数据合同。

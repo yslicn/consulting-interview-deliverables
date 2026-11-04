@@ -122,7 +122,10 @@ def write_minutes(data,path,profile):
         for j,item in enumerate(part.get('items',[]),1):
             p=d.add_paragraph();p.paragraph_format.left_indent=Cm(.65);p.paragraph_format.first_line_indent=Cm(-.65)
             p.paragraph_format.keep_together=True
-            p.add_run(f'{j}.  ');p.add_run(item['label']+'：').bold=True;p.add_run(item['text'])
+            p.add_run(f'{j}.  ')
+            if item.get('label'):
+                p.add_run(item['label']+'：').bold=True
+            p.add_run(item['text'])
         for j,sub in enumerate(part.get('subsections',[]),1):section(sub,level+1,j)
     sections=data['minutes'].get('sections',[])
     for i,part in enumerate(sections,1):section(part,1,i)
@@ -132,7 +135,7 @@ def write_minutes(data,path,profile):
         word_table(d,['工作事项','主要内容','牵头方','时间安排'],[
             [a['item']+('' if a.get('agreed') else '（待明确）'),a['content'],a.get('owner'),a.get('when')] for a in actions],[3.1,8.4,2.7,2.8])
     if data['minutes'].get('open_items'):
-        d.add_heading('需进一步对齐的事项',1)
+        d.add_heading('跟踪事项',1)
         for i,item in enumerate(data['minutes']['open_items'],1):d.add_paragraph(f'{i}. {item}')
     d.core_properties.title=project['name']+' 访谈会议纪要';d.core_properties.author=''
     d.save(path)
@@ -159,12 +162,17 @@ def review_packet(state):
     by_record={r['id']:[] for r in state['records']}
     for e in state['evidence']:
         for rid in e['record_ids']:
-            if rid in by_record:by_record[rid].append({k:e.get(k) for k in ['id','speaker','speaker_role','utterance_type','quote','locator']})
-    return {'semantic_review_required':True,'records':[
-        {'id':r['id'],'nature':r['nature'],'title':r['title'],'description':r['description'],
-         'attention_terms':sorted(set(pattern.findall(r['title']+r['description']))),'evidence':by_record[r['id']]}
+            if rid in by_record:by_record[rid].append({k:e.get(k) for k in ['id','interview_id','speaker','speaker_role','utterance_type','source_file','source_sha256','quote','locator','note']})
+    minutes=state.get('minutes') or {}
+    return {'semantic_review_required':True,
+        'minutes':minutes,
+        'minutes_evidence':[{k:e.get(k) for k in ['id','interview_id','speaker','speaker_role','utterance_type','source_file','source_sha256','quote','locator','note']}
+                            for e in state['evidence']] if minutes else [],
+        'records':[
+        {**r, 'attention_terms':sorted(set(pattern.findall(json.dumps(r,ensure_ascii=False)))),
+         'evidence':by_record[r['id']]}
         for r in state['records']], 'actions':state.get('minutes',{}).get('actions',[]) if state.get('minutes') else [],
-        'instruction':'Review scope, speaker attribution and whether each assertion/owner/date is directly supported. Term flags are prompts, not factual judgments.'}
+        'instruction':'Review each complete record, including impact, hypothesis, status and verification conclusion against original sources. Distinguish past events, current requirements and verified execution; check cross-document claims, related records and counting. Term flags are prompts, not factual judgments.'}
 
 
 def build(args):
