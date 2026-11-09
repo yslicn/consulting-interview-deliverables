@@ -2,7 +2,7 @@
 name: consulting-interview-deliverables
 description: 跨项目的咨询访谈交付规范。基于转写稿、录音及可选提纲生成结构化Word纪要，维护项目共用的Excel问题台账。适用于业务调研和管理层沟通，支持小组归口、跨访谈归并、证据追溯和交付检查。
 metadata:
-  version: "1.4.0"
+  version: "1.4.1"
 ---
 
 # 咨询访谈交付
@@ -39,7 +39,9 @@ metadata:
 
 ## 纪要定稿前独立评审
 
-先按[纪要写作规则](references/writing.md)完成业务发现与证据的编排，再执行[独立内容评审](references/minutes-review.md)。先生成工作区草稿，由未参与起草的评审者对照原始材料与完整正文作出 PASS 或 REVISE。分别验收项目交付适用性与事实证据，两项都通过才能定稿。返工后由评审者逐条复核。只有当前稿件获得 PASS，且完成成品检查，才能作为定稿交付。每轮重读本文件及writing.md、minutes-review.md，记录规则版本 minutes-quality-v3，按minutes-review.md运行定稿校验。缺少独立评审时交付待评审稿，并明确其状态。涉及台账时必须同时执行下述台账评审流程。
+正文按业务结论编排编号，同一结论的机制、条件和影响归入同一段。独立评审逐节检查相邻编号是否碎片化。正式交付前从交付目录读取实际成品并复验文件绑定。
+
+先按[纪要写作规则](references/writing.md)完成业务发现与证据的编排，再执行[独立内容评审](references/minutes-review.md)。先生成工作区草稿，由未参与起草的评审者对照原始材料与完整正文作出 PASS 或 REVISE。分别验收项目交付适用性与事实证据，两项都通过才能定稿。返工后由评审者逐条复核。只有当前稿件获得 PASS，且完成成品检查，才能作为定稿交付。每轮重读本文件及writing.md、minutes-review.md，记录规则版本 minutes-quality-v4，按minutes-review.md运行定稿校验。缺少独立评审时交付待评审稿，并明确其状态。涉及台账时必须同时执行下述台账评审流程。
 
 ## 台账定稿前独立评审
 

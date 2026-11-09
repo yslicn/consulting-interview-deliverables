@@ -20,13 +20,13 @@
 
 ## 当前评审记录与定稿入口
 
-规则版本为 minutes-quality-v3。每轮评审重新读取当前规则。第一遍逐段记录段落的主要业务意思、主体是否明确、句子是否连贯，以及其进入项目纪要的价值。第二遍逐段核对来源、归属、范围和决定程度。PASS也须写明段落位置、判断及其依据，不能仅提交空comments或一句“通读无问题”。检查范围覆盖概述、所有业务段落、行动和待确认事项。
+规则版本为 minutes-quality-v4。每轮评审重新读取当前规则。第一遍逐段记录段落的主要业务意思、主体是否明确、句子是否连贯，以及其进入项目纪要的价值。第二遍逐段核对来源、归属、范围和决定程度。PASS也须写明段落位置、判断及其依据，不能仅提交空comments或一句“通读无问题”。检查范围覆盖概述、所有业务段落、行动和待确认事项。
 
 结果文件使用以下字段。paragraph_checks中的示意项必须替换为对当前稿件实际逐段检查的记录。
 
 ```json
 {
-  "rules_version": "minutes-quality-v3",
+  "rules_version": "minutes-quality-v4",
   "reviewer": "真实评审人员或代理标识",
   "independent": true,
   "reviewed_at": "实际时间",
@@ -35,6 +35,7 @@
   "delivery_suitability": {"verdict": "PASS", "paragraph_checks": [{"location": "段落位置", "assessment": "主要业务意思与验收判断", "basis": "引用当前稿件文字并说明判断理由"}]},
   "evidence": {"verdict": "PASS", "paragraph_checks": [{"location": "段落位置", "assessment": "事实及归属核对结论", "basis": "原始材料定位和支持范围"}]},
   "synthesis": {"verdict": "PASS", "checks": [{"location": "业务归纳稿与对应正文", "assessment": "组织与覆盖判断", "basis": "来源与编排依据"}]},
+  "section_coherence": {"verdict": "PASS", "checks": [{"location": "章节及相邻编号范围", "assessment": "整节主线及段落边界判断", "basis": "应合并或保留独立段落的具体理由"}]},
   "tracking_selection": {"verdict": "PASS", "checks": [{"location": "取舍记录与跟踪事项", "assessment": "重要性与承接判断", "basis": "实际筛选依据"}]},
   "challenge_checks": {"verdict": "PASS", "checks": [{"location": "被质疑的具体判断", "assessment": "反证检查结论", "basis": "原始依据与限制"}]},
   "issues": [],
@@ -44,7 +45,7 @@
 
 返工意见包含location、problem、required_change、status和resolution。status为open、resolved或not_applicable，关闭意见必须有实际改写或不适用依据。复审同时记录旧句和新句，单纯补录证据不得宣称正文完成重写。比较上一版与本版Word正文，正文相同则明确记录“正文未变”，重新判断此前文字问题是否仍然存在。
 
-正式定稿必须执行：
+将已审 Word 放入交付目录后，正式定稿必须针对该目录中的实际文件执行以下命令。交付文件再保存、重新生成或替换后，重新核对当前成品。哈希不符时，先确认变化并按实际稿件复核，不得只修改评审记录的哈希。
 
 ```bash
 python <SKILL_DIR>/scripts/check_deliverables.py --minutes <当前Word> --expected-data <normalized-data.json> --final-review <minutes-review-result.json>
@@ -66,3 +67,9 @@ python <SKILL_DIR>/scripts/check_deliverables.py --minutes <当前Word> --expect
 - challenge_checks：评审者独立选取高风险判断开展反证检查，包含当前正文位置、原始材料定位及是否推翻/限制该判断。
 
 任一维度REVISE均不得定稿。意见须含具体位置、原始依据、返修要求及验收条件。复审除关闭旧意见外，检查修改是否引入归属丢失、事实遗漏或新断言；保留旧句与新句。程序仅验证记录完整，不把写入三个对象视作实际完成语义评审。
+
+## 逐节检查段落是否零碎
+
+section_coherence 使用上述 JSON 的 verdict 和 checks 结构。每个正文业务小节至少一条记录，覆盖该节的编号范围，写明本节主线、各段各自承担的业务结论，以及相邻段为何合并或分开。可对独立条款、行动清单等注明适用的列表理由。评审依据须指向实际成品中的文字及相关事实。
+
+如果同一业务结论的机制、条件或影响被拆成并列编号，读者需要自行重建关系，则判 REVISE，即使每条句子本身通顺、事实正确。指出应归并的编号以及重写后必须保留的事实、限制和归属。复审按整节通读，检查是否保留独立结论、是否丢失事实或引入未经支持的关系。不按句长或编号数量判定。

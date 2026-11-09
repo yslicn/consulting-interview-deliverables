@@ -4,7 +4,7 @@
 
 ## English
 
-A Claude Skill for consulting teams: create structured Word meeting minutes from original interview transcripts and incrementally maintain one shared Excel issue ledger per project. Current release: **1.4.0**. For formal delivery, follow the independent review workflows in [SKILL.md](SKILL.md), including review records tied to the final files. Project names, phases, workstreams and the number of teams are configurable.
+A Claude Skill for consulting teams: create structured Word meeting minutes from original interview transcripts and incrementally maintain one shared Excel issue ledger per project. Current release: **1.4.1**. For formal delivery, follow the independent review workflows in [SKILL.md](SKILL.md), including review records tied to the final files. Project names, phases, workstreams and the number of teams are configurable.
 
 **This is a drafting and review aid. Project staff must review deliverables before formal archiving.** Rules and code checks cannot replace business judgment or guarantee consistent quality across models.
 
@@ -107,7 +107,7 @@ Release status: suitable for team trials and human-reviewed delivery. See [CHANG
 
 ## 中文说明
 
-面向咨询项目组的 Claude Skill：基于原始转写材料，生成结构化 Word 会议纪要，并增量维护整个项目共用的 Excel 问题台账。正式交付需按 [SKILL.md](SKILL.md) 完成独立评审并将评审记录绑定到成品。当前版本 **1.4.0**，支持不同客户、阶段及任意数量的小组。
+面向咨询项目组的 Claude Skill：基于原始转写材料，生成结构化 Word 会议纪要，并增量维护整个项目共用的 Excel 问题台账。正式交付需按 [SKILL.md](SKILL.md) 完成独立评审并将评审记录绑定到成品。当前版本 **1.4.1**，支持不同客户、阶段及任意数量的小组。
 
 **定位：辅助制作和评审的工具，正式归档必须经过项目人员复核。** 规则和代码检查不能替代业务判断，也不能保证不同模型输出相同质量。
 
